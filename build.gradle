@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id 'application'
+    id 'org.springframework.boot' version '3.5.4'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'org.practice'
@@ -17,16 +18,19 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.batch:spring-batch-core:5.2.2'
-    implementation 'com.h2database:h2:2.3.232'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    runtimeOnly 'com.h2database:h2'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.batch:spring-batch-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation 'org.springframework.batch:spring-batch-test:5.2.2'
-}
-
-application {
-    mainClass = 'org.springframework.batch.core.launch.support.CommandLineJobRunner'
 }
 
 tasks.named('test') {
